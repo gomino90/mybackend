@@ -24,9 +24,9 @@
 			<label for="phone">Phone:</label> <input type="text" class="form-control" placeholder="Enter PhoneNumber" id="phone">
 		</div>
 		
-		<!-- <input type="radio" name="role" id="role" value="SYSADMIN"> SYSADMIN 
-		<input type="radio" name="role" id="ro1e" value="FACADMIN"> FACADMIN <br> -->
-		
+		<input type="radio" name="role" id="role2" value="FACADMIN"> FACADMIN 
+		<!-- <input type="radio" name="role" id="ro1e1" value="FACADMIN"> FACADMIN <br>
+		 -->
 	</form>
 	<button id="btn-save" class="btn btn-primary">등록완료</button>
 

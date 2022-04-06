@@ -3,6 +3,7 @@ package com.pi.login.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 
 
@@ -15,14 +16,14 @@ public class UserController {
 
 
 
-	
+	@CrossOrigin
 	@GetMapping("/auth/joinForm")
 	public String joinForm() {
 		
 		return "user/joinForm";
 		
 	}
-
+	@CrossOrigin
 	@GetMapping("/auth/loginForm")
 	public String loinForm() {
 		
