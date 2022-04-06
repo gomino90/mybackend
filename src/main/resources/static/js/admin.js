@@ -1,124 +1,106 @@
+// var updatepwd=document.getElementById("updatePwdButton");
+// updatepwd.addEventListener('click',function(){
+// 	var xhr,url='/updatpwd',data='pwd'+document.getElementById('pwd').value+'&npwd'+document.getElementById('npwd').value+'&fpwd'+document.getElementById('fpwd').value;
+// 	xhr=doajax(url,data);
+// 	xhr.onload = function(){
+// 		var text;
+// 		if(xhr.status==200){
+// 			if(xhr.response=='ture'){
+// 				text="비밀번호변경완료";
+// 				location.href="/";
+// 		 }else{
+// 			text="틀립니다.";
+// 		}
+// 		alert(text);
+// 		}
+// 	}
+// })
 
-var updatepwd=document.getElementById("updatePwdButton");
-updatepwd.addEventListener('click',function(){
-	var xhr,url='/updatpwd',data='pwd'+document.getElementById('pwd').value+'&npwd'+document.getElementById('npwd').value+'&fpwd'+document.getElementById('fpwd').value;
-	xhr=doajax(url,data);
-	xhr.onload = function(){
-		var text;
-		if(xhr.status==200){
-			if(xhr.response=='ture'){
-				text="비밀번호변경완료";
-				location.href="/";
-		 }else{
-			text="틀립니다.";
-		}
-		alert(text);
-		}
-	}
-})
+let index = {
+  init: function () {
+    $("#btn-save").on("click", () => {
+      this.save();
+    });
+    $("#btn-update").on("click", () => {
+      this.update();
+    });
+    $("#btn-delete").on("click", () => {
+      this.delete();
+    });
+  },
 
+  save: function () {
+    let data = {
+      role: $("#role1").val(),
+      role: $("#role2").val(),
+      username: $("#username").val(),
+      userId: $("#userId").val(),
+      password: $("#password").val(),
+      email: $("#email").val(),
+      phone: $("#phone").val(),
+    };
 
+    console.log(data);
 
-let index  = {
-		init: function(){
-			$("#btn-save").on("click", ()=>{
-				this.save();
-			});
-			$("#btn-update").on("click", ()=>{
-				this.update();
-			});
-			$("#btn-delete").on("click", ()=>{
-			this.delete();
-			});
-			
-		},
+    $.ajax({
+      type: "POST",
+      url: "/auth/joinProc",
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    })
+      .done(function (resp) {
+        alert("회원가입이 완료되었습니다.");
+        location.href = "/amin";
+      })
+      .fail(function (error) {
+        alert(JSON.stringify(error));
+      });
+  },
+  update: function () {
+    let data = {
+      id: $("#id").val(),
+      userId: $("#userId").val(),
+      username: $("#username").val(),
+      password: $("#password").val(),
+      phone: $("#phone").val(),
+      email: $("#email").val(),
+    };
 
-save: function(){
-		
-		let data ={
-			
-			role:$("#role1").val(),
-			role:$("#role2").val(),
-			username:$("#username").val(),
-			userId:$("#userId").val(),
-			password:$("#password").val(),
-			email:$("#email").val(),
-			phone:$("#phone").val(),
-		
-		};
+    $.ajax({
+      type: "POST",
+      url: "/auth/user",
+      data: JSON.stringify(data),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    })
+      .done(function (resp) {
+        alert("회원수정이 완료되었습니다.");
+        location.href = "/";
+      })
+      .fail(function (error) {
+        alert(JSON.stringify(error));
+      });
+  },
+  delete: function () {
+    let id = $("#id").text();
 
-		console.log(data);
-		
-		
-		$.ajax({
-			type:"POST",
-			url:"/auth/joinProc",
-			data: JSON.stringify(data),
-			contentType : 'application/json; charset=utf-8',
-			dataType:"json"
-		}).done(function(resp){
-			alert("회원가입이 완료되었습니다.");
-			location.href="/amin";
-			
-		}).fail(function(error){
-			alert(JSON.stringify(error));	
-		});	
-		
-		},
-update: function(){
-		
-		let data ={
-			id:$("#id").val(),
-			userId:$("#userId").val(),
-			username:$("#username").val(),
-			password:$("#password").val(),
-			phone:$("#phone").val(),
-			email:$("#email").val()
-			
-		};
-
-	
-		
-
-		$.ajax({
-			type:"POST",
-			url:"/auth/user",
-			data: JSON.stringify(data),
-			contentType : 'application/json; charset=utf-8',
-			dataType:"json"
-		}).done(function(resp){
-			alert("회원수정이 완료되었습니다.");
-			location.href="/";
-			
-		}).fail(function(error){
-			alert(JSON.stringify(error));	
-		});	
-		
-		},
-delete: function(){
-			let id=$("#id").text();
-	
-		$.ajax({
-			type:"DELETE",
-			url:"/delete/"+id,		
-			dataType:"json"
-		}).done(function(resp){
-			alert("삭제가 완료되었습니다.");
-			location.href="/";
-			
-		}).fail(function(error){
-			alert(JSON.stringify(error));	
-		});	
-		
-		},
-		
-		
-		
-		
-}
+    $.ajax({
+      type: "DELETE",
+      url: "/delete/" + id,
+      dataType: "json",
+    })
+      .done(function (resp) {
+        alert("삭제가 완료되었습니다.");
+        location.href = "/";
+      })
+      .fail(function (error) {
+        alert(JSON.stringify(error));
+      });
+  },
+};
 
 index.init();
-
 
 /*01 function doAjax(u,p,f){
 02  var args = doAjax.arguments;
@@ -157,4 +139,3 @@ index.init();
 35  }
 36 }
 */
-
